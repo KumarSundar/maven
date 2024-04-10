@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     // Pull the Nginx Docker image
-                    docker pull nginx:latest
+                    docker pull $DOCKER_IMAGE
                 }
             }
         }
