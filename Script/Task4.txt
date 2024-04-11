@@ -1,0 +1,25 @@
+4) Create a script that takes in a path as an argument, the script then executes the command “ls -la” on that path.
+
+#!/bin/bash
+
+# Check if the user provided an argument (path)
+if [ $# -eq 0 ]; then
+    echo "Error: Path argument is missing."
+    echo "Usage: ./custom_ls.sh <path>"
+    exit 1
+fi
+
+# Extract the path argument from the command line
+path="$1"
+
+# Check if the specified path exists
+if [ ! -e "$path" ]; then
+    echo "Error: Path '$path' does not exist."
+    exit 1
+fi
+
+# Execute the 'ls -la' command on the specified path
+ls -la "$path"
+
+
+enter the path which it needs to fetch the ls -la command.
