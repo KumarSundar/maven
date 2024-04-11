@@ -40,8 +40,11 @@ pipeline {
             steps {
                 script {
                     // Stop and remove container
-                    docker.image(DOCKER_IMAGE).stopContainer(CONTAINER_NAME)
-                    docker.image(DOCKER_IMAGE).removeContainer(CONTAINER_NAME)
+                    docker.image(DOCKER_IMAGE).inside("--name ${CONTAINER_NAME}") {
+                         sh 'nginx -s quit' // Gracefully stop Nginx inside the container
+                    }
+                    docker.image(DOCKER_IMAGE).remove("${CONTAINER_NAME}")
+                    
                 }
             }
         }
