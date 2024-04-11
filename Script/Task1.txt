@@ -1,0 +1,16 @@
+2)Create a script that uses the files created above and moves them to another folder.
+
+#!/bin/bash
+
+Dest_dir="./ksundar01"
+
+# Create the destination directory if it doesn't exist
+mkdir -p "$Dest_dir"
+
+for i in {1..30}; do
+   touch $i.txt
+   echo $i > $i.txt
+   mv $i.txt "$Dest_dir"
+done
+
+echo All Files moved to "$Dest_dir" 
