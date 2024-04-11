@@ -1,51 +1,54 @@
 pipeline {
     agent any
-
+    
     environment {
-        DOCKER_IMAGE = 'nginx-custom'
-        DOCKER_FILE = 'Dockerfile'
-        NGINX_PORT = 8081
-        CONTAINER_NAME = 'nginx-container'
+        DOCKER_IMAGE = 'nginx:latest'
+        CONTAINER_NAME = 'my-nginx-container'
+        HOST_PORT = 8080
+        CONTAINER_PORT = 80
     }
-
+    
     stages {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build Docker image
-                    docker.build(DOCKER_IMAGE, "-f ${DOCKER_FILE} .")
+                    // Pull the Nginx Docker image
+                    docker.withRegistry('', '') {
+                        def dockerImage = docker.image(DOCKER_IMAGE)
+                        dockerImage.pull()
+                    }
                 }
             }
         }
-
+        
         stage('Run Docker Container') {
             steps {
                 script {
-                    // Run Docker container
-                    docker.image(DOCKER_IMAGE).run("-p ${NGINX_PORT}:80 --name ${CONTAINER_NAME} -d")
+                    // Run the Nginx Docker container
+                    docker.run("-p ${HOST_PORT}:${CONTAINER_PORT} --name ${CONTAINER_NAME} -d ${DOCKER_IMAGE}")
                 }
             }
         }
-
+        
         stage('Verify Container') {
             steps {
                 script {
-                    // Verify container is running
-                    sh "docker ps | grep ${CONTAINER_NAME}"
+                    // Check if the container is running
+                    sh "docker ps -a | grep ${CONTAINER_NAME}"
                 }
             }
         }
-
-        stage('Cleanup') {
-            steps {
-                script {
-                    // Stop and remove container
-                    docker.image(DOCKER_IMAGE).inside("--name ${CONTAINER_NAME}") {
-                         sh 'nginx -s quit' // Gracefully stop Nginx inside the container
-                    }
-                    docker.image(DOCKER_IMAGE).remove("${CONTAINER_NAME}")
-                    
-                }
+    }
+    
+    post {
+        always {
+            // Cleanup: Stop and remove the Docker container
+            script {
+                // Stop the container
+                sh "docker stop ${CONTAINER_NAME}"
+                
+                // Remove the container
+                sh "docker rm ${CONTAINER_NAME}"
             }
         }
     }
