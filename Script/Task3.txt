@@ -1,16 +1,22 @@
-2)Create a script that uses the files created above and moves them to another folder.
+3) Create a script that uses file-1.txt (the content of the file can be found below). Execute a ‘grep’ command on it and filter out lines that do not include the word “test”.
 
 #!/bin/bash
 
-Dest_dir="./ksundar01"
+# Define the input file
+input_file="file-1.txt"
 
-# Create the destination directory if it doesn't exist
-mkdir -p "$Dest_dir"
+# Check if the input file exists
+if [ ! -f "$input_file" ]; then
+    echo "Error: $input_file not found."
+    exit 1
+fi
 
-for i in {1..30}; do
-   touch $i.txt
-   echo $i > $i.txt
-   mv $i.txt "$Dest_dir"
-done
+# Define the keyword to search for
+keyword="test"
 
-echo All Files moved to "$Dest_dir" 
+
+filtered_output=$(grep -v "$keyword" "$input_file")
+
+# Print the filtered output
+echo "Filtered lines (not containing '$keyword') from $input_file:"
+echo "$filtered_output"
