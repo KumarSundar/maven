@@ -1,0 +1,1 @@
+you can access the nginx outside through this Ip: http://35.154.104.97:31617/ AS i have enabled NodePort on my svc yaml.
