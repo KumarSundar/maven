@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":null,"labels":{"app":"nginx"},"name":"nginx","namespace":"default"},"spec":{"ports":[{"name":"http","port":8080,"protocol":"TCP","targetPort":8080}],"selector":{"app":"nginx"},"type":"ClusterIP"}}
+  creationTimestamp: "2024-04-10T23:35:11Z"
+  labels:
+    app: nginx
+  name: nginx
+  namespace: default
+  resourceVersion: "212722"
+  uid: 914bdc3e-4f70-48e2-96e8-a3e339394b25
+spec:
+  clusterIP: 10.97.246.89
+  clusterIPs:
+  - 10.97.246.89
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    nodePort: 31617
+    port: 8080
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx
+  sessionAffinity: None
+  type: NodePort
+
