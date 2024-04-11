@@ -4,8 +4,8 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'nginx-custom'
         DOCKER_FILE = 'Dockerfile'
-        NGINX_PORT = 8081
-        CONTAINER_NAME = 'my-nginx-container'
+        NGINX_PORT = 8080
+        CONTAINER_NAME = 'nginx'
     }
 
     stages {
