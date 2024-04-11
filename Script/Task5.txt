@@ -1,0 +1,12 @@
+5)Use the same file-1.txt from exercise 3 and replace the word ‘test’ with ‘delete’ using sed on the file.
+
+sed -i 's/test/delete/g' file-1.txt
+
+ubuntu@ip-172-31-32-240:~$ cat file-1.txt
+1 2 3 delete
+Container Docker
+Tesitng txt file
+Test delete delete
+A b c d e
+One two delete
+Artifactory Bintray Mission-Control Xray
