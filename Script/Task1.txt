@@ -1,16 +1,24 @@
-2)Create a script that uses the files created above and moves them to another folder.
+1) Create a script that creates 30 text files, and write the loop's iteration number into each file as text (Ex: 1.txt contains "1").
+
+for i in {1..30}; do touch $i.txt; done  -> Only to create text files.
 
 #!/bin/bash
 
-Dest_dir="./ksundar01"
+# Specify the directory where the files will be created
+directory="./task1"
 
-# Create the destination directory if it doesn't exist
-mkdir -p "$Dest_dir"
+# Create the directory if it doesn't exist
+mkdir -p "$directory"
 
+# Loop to create and write to each text file
 for i in {1..30}; do
-   touch $i.txt
-   echo $i > $i.txt
-   mv $i.txt "$Dest_dir"
+    filename="$directory/$i.txt";
+    echo "$i" > "$filename"
+    echo "Created file: $filename"
 done
 
-echo All Files moved to "$Dest_dir" 
+echo "All text files created successfully."
+
+Any one
+
+for i in {1..30} ; do touch $i.txt; echo $i > $i.txt ; done 
